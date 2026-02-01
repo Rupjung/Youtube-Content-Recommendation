@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git
+.git
+.gitignore
+
+# Virtual env
+venv/
+.env
+
+# Logs
+*.log
+
+# Node (if any)
+node_modules/
+
+# 🚫 GENERATED CONTENT (CRITICAL)
+outputs/
+assets/
+videos/
+temp/
+cache/
+
+# Media
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.jpg
+*.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Additional exclusions to minimize build context
+*.zip
+*.tar.gz
+*.db
+logs/
+data/
+models/
+# Exclude any large directories not already covered

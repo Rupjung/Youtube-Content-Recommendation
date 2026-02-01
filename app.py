@@ -8,11 +8,16 @@ from orchestrator import AutonomousPipeline
 from config import Config
 import numpy as np
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
+
+os.makedirs(OUTPUTS_DIR, exist_ok=True)
+
 app = FastAPI()
 
 # Mount static and templates
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
+app.mount("/outputs", StaticFiles(directory=OUTPUTS_DIR), name="outputs")
 templates = Jinja2Templates(directory="templates")
 
 

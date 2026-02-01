@@ -107,7 +107,6 @@ class AutonomousPipeline:
                     "Waiting",
                     "Recommendations ready. Select a video to generate."
                 )
-                print(recommendations)
             else:
                 llm_recommender = self.state_tracker["recommendation_object"]
                 recommendations = self.state_tracker["recommendations"]

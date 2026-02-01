@@ -3,22 +3,28 @@ from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import subprocess
 
 from orchestrator import AutonomousPipeline
 from config import Config
 import numpy as np
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
 
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
+os.makedirs(STATIC_DIR, exist_ok=True)
+os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 app = FastAPI()
 
-# Mount static and templates
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/outputs", StaticFiles(directory=OUTPUTS_DIR), name="outputs")
-templates = Jinja2Templates(directory="templates")
+
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
 
@@ -36,6 +42,15 @@ pipeline_state = {
     "video_url": None        # browser-accessible URL
 }
 
+
+
+
+def ensure_model():
+    subprocess.run(["ollama", "pull", "llama3.2:3b"], check=False)
+
+@app.on_event("startup")
+async def startup():
+    ensure_model()
 
 
 def clean_for_json(obj):

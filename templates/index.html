@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Pipeline | Analytics Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <header>
+            <h1><span class="red-text">Autonomous</span> YouTube Pipeline</h1>
+            <div class="channel-meta">
+                <span id="headerStatus">System Online</span>
+            </div>
+        </header>
+
+        <main class="grid-container">
+            <section class="card col-4">
+                <h3>Pipeline Control</h3>
+                <div class="progress-wrapper" style="margin-bottom: 15px;">
+                    <div class="progress-container">
+                        <div id="pipelineProgressBar" class="progress-fill">0%</div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="channelInput">Target Channel ID</label>
+                    <input type="text" id="channelInput" value="UC_x5XG1OV2P6uZZ5FSM9Ttw">
+                </div>
+                <button id="runBtn" onclick="handleStart()">Launch Agents</button>
+                
+                <div class="status-box" id="statusBox">
+                    <p><strong>Current State:</strong> <span id="statusValue">Idle</span></p>
+                    <p id="statusDetails" class="dim-text">Ready to begin analysis.</p>
+                </div>
+            </section>
+
+            <section class="card col-8">
+                <div class="overview-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <img id="channelLogo" src="" alt="" style="width: 60px; height: 60px; border-radius: 50%; display: none; border: 2px solid var(--yt-red); object-fit: cover;">
+                    <h2 id="displayChannelName" style="margin: 0;">Waiting for Data...</h2>
+                </div>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <label>Subscribers</label>
+                        <div id="statSubscribers">--</div>
+                    </div>
+                    <div class="stat-item">
+                        <label>Total Videos</label>
+                        <div id="statVideos">--</div>
+                    </div>
+                    <div class="stat-item">
+                        <label>Total Views</label>
+                        <div id="statViews">--</div>
+                    </div>
+                    <div class="stat-item">
+                        <label>Avg Engagement</label>
+                        <div id="statEngagement" class="highlight-text">--</div>
+                    </div>
+                </div>
+
+                <div class="description-box">
+                    <label>Channel Description</label>
+                    <p id="displayDescription" class="dim-text">Run the pipeline to fetch agent metadata.</p>
+                </div>
+            </section>
+
+            <section class="card col-12">
+                <h3>Engagement Trend (Last 5 Videos)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="engagementTrendChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card col-12">
+                <h3>Top Performing Topics (By Engagement Rate)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="topicsChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card col-12">
+                <h3>AI Recommended Next Videos</h3>
+                <div id="recommendationsContainer" class="recommendations-grid">
+                    <p class="dim-text">Analysis in progress... recommendations will appear here.</p>
+                </div>
+            </section>
+
+            <section class="card col-12" id="videoOutputCard" style="display:none;">
+                <h3>Generated Video</h3>
+
+                <div class="video-wrapper">
+                    <video id="generatedVideo" controls></video>
+                </div>
+
+                <div class="video-actions">
+                    <a id="downloadVideoBtn" class="download-btn" download>
+                        ⬇ Download Video
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

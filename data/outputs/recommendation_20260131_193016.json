@@ -1,0 +1,132 @@
+[
+  {
+    "recommended_topic": "Will Syria's ISIS camps remain secure? | BBC News",
+    "rationale": "This video has performed well historically and is a trending topic, making it an ideal candidate for future content.",
+    "target_title": "Will Syria's ISIS camps remain secure?",
+    "title_variations": [
+      "Will Syria's ISIS camps be secure?",
+      "ISIS camps in Syria: Will they remain secure?"
+    ],
+    "description_template": "The security situation in Syria is complex and constantly evolving. In this video, we'll explore the current state of ISIS camps and whether they can be secured.",
+    "keywords": [
+      "Syria",
+      "ISIS",
+      "security"
+    ],
+    "content_structure": [
+      "Introduction to the situation in Syria",
+      "Analysis of ISIS camps",
+      "Expert insights on security measures"
+    ],
+    "estimated_duration": "8-10 minutes",
+    "thumbnail_ideas": [
+      "Image of a Syrian refugee camp",
+      "Map of Syria with ISIS-controlled areas highlighted"
+    ],
+    "estimated_engagement": "Expected views: 15k-30k, Engagement rate: 4-7%"
+  },
+  {
+    "recommended_topic": "Can Trump really save the midterms for the Republicans?",
+    "rationale": "This video has a strong potential audience and is a trending topic, making it an ideal candidate for future content.",
+    "target_title": "Can Trump really save the midterms for the Republicans?",
+    "title_variations": [
+      "Will Trump save the midterms?",
+      "Trump's chances in the midterms"
+    ],
+    "description_template": "The 2022 US midterm elections are just around the corner. Can President Trump's policies and leadership help the Republicans win?",
+    "keywords": [
+      "US midterms",
+      "Trump",
+      "Republicans"
+    ],
+    "content_structure": [
+      "Overview of the current political landscape",
+      "Analysis of Trump's policies and their impact on the midterms",
+      "Expert insights on the Republican chances"
+    ],
+    "estimated_duration": "7-9 minutes",
+    "thumbnail_ideas": [
+      "Image of President Trump with a Republican backdrop",
+      "Graph showing the current polls"
+    ],
+    "estimated_engagement": "Expected views: 12k-25k, Engagement rate: 3-6%"
+  },
+  {
+    "recommended_topic": "How we verify a video with BBC Verify",
+    "rationale": "This video has a strong educational value and is a popular topic among learners of English.",
+    "target_title": "How we verify a video with BBC Verify",
+    "title_variations": [
+      "Verifying videos with BBC Verify",
+      "BBC Verify: How it works"
+    ],
+    "description_template": "In this video, we'll show you how to verify a video using our trusted tool, BBC Verify. Learn the steps and become a more critical viewer.",
+    "keywords": [
+      "BBC Verify",
+      "video verification",
+      "English language learning"
+    ],
+    "content_structure": [
+      "Introduction to BBC Verify",
+      "Step-by-step guide on verifying videos",
+      "Tips for effective video verification"
+    ],
+    "estimated_duration": "5-7 minutes",
+    "thumbnail_ideas": [
+      "Image of the BBC Verify logo",
+      "Screenshot of the BBC Verify tool"
+    ],
+    "estimated_engagement": "Expected views: 8k-15k, Engagement rate: 2-4%"
+  },
+  {
+    "recommended_topic": "What could happen if the US strikes Iran? | BBC News",
+    "rationale": "This video is a high-performing example of BBC News content and can serve as a model for future videos.",
+    "target_title": "What could happen if the US strikes Iran?",
+    "title_variations": [
+      "US strike on Iran: What could happen?",
+      "Iran: Possible outcomes of a US strike"
+    ],
+    "description_template": "The US appears poised to strike Iran within days. But what are the possible outcomes? Our security correspondent Frank Gardner explores seven scenarios.",
+    "keywords": [
+      "US",
+      "Iran",
+      "security"
+    ],
+    "content_structure": [
+      "Introduction to the situation in Iran",
+      "Analysis of possible outcomes",
+      "Expert insights on the implications"
+    ],
+    "estimated_duration": "8-10 minutes",
+    "thumbnail_ideas": [
+      "Image of a map with Iran highlighted",
+      "Photo of Frank Gardner"
+    ],
+    "estimated_engagement": "Expected views: 20k-40k, Engagement rate: 5-8%"
+  },
+  {
+    "recommended_topic": "How are horses helping heal humans?",
+    "rationale": "This video has a strong potential audience and is a popular topic among learners of English.",
+    "target_title": "How are horses helping heal humans?",
+    "title_variations": [
+      "Horses and human health",
+      "The healing power of horses"
+    ],
+    "description_template": "In this video, we'll explore the ways in which horses are being used to help people with physical and mental health issues.",
+    "keywords": [
+      "horses",
+      "human health",
+      "wellness"
+    ],
+    "content_structure": [
+      "Introduction to the topic",
+      "Examples of horse-assisted therapy",
+      "Expert insights on the benefits"
+    ],
+    "estimated_duration": "6-8 minutes",
+    "thumbnail_ideas": [
+      "Image of a person riding a horse",
+      "Photo of a horse and rider in a therapeutic setting"
+    ],
+    "estimated_engagement": "Expected views: 10k-20k, Engagement rate: 3-5%"
+  }
+]

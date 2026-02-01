@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import subprocess
+
 
 from orchestrator import AutonomousPipeline
 from config import Config
@@ -45,12 +45,6 @@ pipeline_state = {
 
 
 
-def ensure_model():
-    subprocess.run(["ollama", "pull", "llama3.2:3b"], check=False)
-
-@app.on_event("startup")
-async def startup():
-    ensure_model()
 
 
 def clean_for_json(obj):

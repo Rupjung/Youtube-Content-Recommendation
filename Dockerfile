@@ -1,26 +1,22 @@
 FROM python:3.10-slim
 
-# Install system dependencies FIRST
+# System deps (minimal)
 RUN apt-get update && apt-get install -y \
     curl \
-    zstd \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Ollama (binary only)
-RUN curl -fsSL https://ollama.com/install.sh | sh
 
 WORKDIR /app
 
-# Python deps
+# Create runtime dirs
+RUN mkdir -p outputs static templates
+
+# Install Python deps first (better caching)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# App code
+# Copy app code
 COPY . .
-
-# Runtime dirs (important for your FastAPI error)
-RUN mkdir -p outputs static templates
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "ollama serve & uvicorn app:app --host 0.0.0.0 --port 8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

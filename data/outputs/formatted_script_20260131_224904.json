@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "How are influencers affecting politics?",
+    "total_duration": 180,
+    "created_at": "2026-01-31T22:49:04.953591"
+  },
+  "sections": [
+    {
+      "section_number": 1,
+      "title": "Hook/Introduction",
+      "content": "Imagine a world where politicians are no longer the only ones shaping public opinion. A world where social media influencers have become the gatekeepers of information, and their followers are the ones deciding the fate of our democracy.",
+      "duration": 30,
+      "visual_prompt": "A split-screen image with a politician on one side and an influencer on the other, with a red line dividing them.",
+      "speaking_style": "energetic, curious",
+      "audio_file": "section_1.mp3",
+      "image_file": "section_1.jpg"
+    },
+    {
+      "section_number": 2,
+      "title": "Introduction to the topic and its context",
+      "content": "In recent years, social media has become an integral part of our daily lives. Platforms like Instagram, Twitter, and Facebook have given rise to a new breed of influencers who have amassed millions of followers. But what happens when these influencers start to influence politics?",
+      "duration": 30,
+      "visual_prompt": "A graphic illustrating the growth of social media platforms over time.",
+      "speaking_style": "authoritative, informative",
+      "audio_file": "section_2.mp3",
+      "image_file": "section_2.jpg"
+    },
+    {
+      "section_number": 3,
+      "title": "Exploring the impact of social media on politics",
+      "content": "So, how are influencers affecting politics? Well, for one, they're changing the way we consume information. With algorithms and echo chambers, influencers can curate content that resonates with their followers, often without fact-checking or journalistic integrity. This can lead to the spread of misinformation and propaganda.",
+      "duration": 60,
+      "visual_prompt": "An animation illustrating how social media algorithms work, with red flags indicating potential biases.",
+      "speaking_style": "conversational, analytical",
+      "audio_file": "section_3.mp3",
+      "image_file": "section_3.jpg"
+    },
+    {
+      "section_number": 4,
+      "title": "Exploring the impact of social media on politics (continued)",
+      "content": "Influencers are also using their platforms to mobilize their followers around specific issues. This can be a powerful tool for social change, but it can also be used to manipulate public opinion and sway elections.",
+      "duration": 60,
+      "visual_prompt": "A graphic illustrating the power of social media in mobilizing movements.",
+      "speaking_style": "conversational, analytical",
+      "audio_file": "section_4.mp3",
+      "image_file": "section_4.jpg"
+    },
+    {
+      "section_number": 5,
+      "title": "Conclusion and final thoughts",
+      "content": "So, what does this mean for our democracy? It's clear that social media influencers have a significant impact on politics. As we move forward, it's essential to be aware of the role they play in shaping public opinion and to demand more from them. We need to fact-check, critically evaluate information, and engage in respectful dialogue.",
+      "duration": 60,
+      "visual_prompt": "A split-screen image with a politician on one side and an influencer on the other, with a green line dividing them.",
+      "speaking_style": "authoritative, encouraging",
+      "audio_file": "section_5.mp3",
+      "image_file": "section_5.jpg"
+    }
+  ],
+  "call_to_action": "Subscribe and like the video for more thought-provoking content!",
+  "hashtags": [
+    "#influencersinpolitics",
+    "#socialmediaimpact"
+  ]
+}

@@ -1,0 +1,151 @@
+[
+  {
+    "recommended_topic": "What could happen if the US strikes Iran? | BBC News",
+    "rationale": "This video has performed exceptionally well, and its topic is highly relevant to current events.",
+    "target_title": "US Strikes Iran: What Could Happen?",
+    "title_variations": [
+      "US-Iran Conflict",
+      "Iran Strike"
+    ],
+    "description_template": "The US appears poised to strike Iran within days. So, if no last-minute deal can be reached with Tehran and President Donald Trump decides to order US forces to attack, then what are the possible outcomes? The BBC's security correspondent Frank Gardner talks through seven scenarios.",
+    "keywords": [
+      "Iran",
+      "US",
+      "BBCNews"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Predictable targets",
+      "Main point 2: Unpredictable outcomes",
+      "Conclusion/Call to action"
+    ],
+    "estimated_duration": "10-15 minutes",
+    "thumbnail_ideas": [
+      "Image of Frank Gardner with a serious expression",
+      "Map showing potential targets in Iran"
+    ],
+    "estimated_engagement": {
+      "Expected views": 20,
+      "Engagement rate": 6.5
+    }
+  },
+  {
+    "recommended_topic": "Israeli air strikes kill at least 28 Palestinians in Gaza, rescue officials say | BBC News",
+    "rationale": "This video has performed well and is a relevant topic for current events.",
+    "target_title": "Gaza Conflict: Israeli Air Strikes Kill 28 Palestinians",
+    "title_variations": [
+      "Israel-Gaza Conflict",
+      "Palestinian Casualties"
+    ],
+    "description_template": "Israeli air strikes have killed at least 28 Palestinians in Gaza, rescue officials say. The BBC's correspondent in Gaza reports on the latest developments.",
+    "keywords": [
+      "Gaza",
+      "Israel",
+      "BBCNews"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Casualties reported",
+      "Main point 2: Rescue efforts underway",
+      "Conclusion/Call to action"
+    ],
+    "estimated_duration": "8-12 minutes",
+    "thumbnail_ideas": [
+      "Image of damaged buildings in Gaza",
+      "Photo of rescue workers"
+    ],
+    "estimated_engagement": {
+      "Expected views": 18,
+      "Engagement rate": 6.2
+    }
+  },
+  {
+    "recommended_topic": "How we verify a video with BBC Verify. #BBCNews",
+    "rationale": "This video has performed well and is an informative topic for viewers.",
+    "target_title": "Verifying Videos with BBC Verify",
+    "title_variations": [
+      "BBC Verify",
+      "Video Verification"
+    ],
+    "description_template": "How we verify a video with BBC Verify. Learn how our team of experts checks the authenticity of videos.",
+    "keywords": [
+      "Verify",
+      "BBCNews"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Importance of verification",
+      "Main point 2: Process explained",
+      "Conclusion/Call to action"
+    ],
+    "estimated_duration": "5-8 minutes",
+    "thumbnail_ideas": [
+      "Image of a person holding a tablet with a video on screen",
+      "Logo of BBC Verify"
+    ],
+    "estimated_engagement": {
+      "Expected views": 15,
+      "Engagement rate": 6.1
+    }
+  },
+  {
+    "recommended_topic": "What happened on the UK Prime Minister's trip to China? | BBC Newscast",
+    "rationale": "This video has performed well and is a relevant topic for current events.",
+    "target_title": "UK PM's Trip to China: What Happened?",
+    "title_variations": [
+      "UK-China Relations",
+      "Prime Minister's Visit"
+    ],
+    "description_template": "What happened on the UK Prime Minister's trip to China? Learn about the latest developments in UK-China relations.",
+    "keywords": [
+      "China",
+      "UKPM",
+      "BBCNews"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Key takeaways",
+      "Main point 2: Implications explained",
+      "Conclusion/Call to action"
+    ],
+    "estimated_duration": "8-12 minutes",
+    "thumbnail_ideas": [
+      "Image of the UK Prime Minister with a serious expression",
+      "Photo of a diplomatic meeting"
+    ],
+    "estimated_engagement": {
+      "Expected views": 17,
+      "Engagement rate": 6.3
+    }
+  },
+  {
+    "recommended_topic": "Scared to speak English? ⏲️ 6 Minute English with description as Do you ever feel scared to speak in English? Lots of people find speaking a different language stressful.",
+    "rationale": "This video has performed well and is an informative topic for viewers.",
+    "target_title": "Overcoming Language Fears",
+    "title_variations": [
+      "Language Anxiety",
+      "Speaking English"
+    ],
+    "description_template": "Do you ever feel scared to speak in English? Lots of people find speaking a different language stressful. Learn how to overcome your fears and improve your English skills.",
+    "keywords": [
+      "English",
+      "Language Learning",
+      "BBCLearningEnglish"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Understanding anxiety",
+      "Main point 2: Tips for improvement",
+      "Conclusion/Call to action"
+    ],
+    "estimated_duration": "6 minutes",
+    "thumbnail_ideas": [
+      "Image of a person speaking with confidence",
+      "Logo of BBC Learning English"
+    ],
+    "estimated_engagement": {
+      "Expected views": 12,
+      "Engagement rate": 5.9
+    }
+  }
+]

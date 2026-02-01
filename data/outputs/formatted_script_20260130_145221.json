@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "title": "Social Media Anxiety: How Filipinos Are Fighting Back",
+    "total_duration": 600,
+    "created_at": "2026-01-30T14:52:21.154225"
+  },
+  "sections": [
+    {
+      "section_number": 1,
+      "title": "Hook/Introduction",
+      "content": "In the age of social media, where likes and followers are the ultimate measures of success, it's easy to get caught up in the never-ending cycle of comparison and competition. But what happens when this digital obsession starts to affect our mental health? In the Philippines, social media anxiety is a growing concern, with many Filipinos struggling to cope with the pressure to present a perfect online persona. Let's explore how social media is impacting mental health in the Philippines and what's being done to fight back.",
+      "duration": 30,
+      "visual_prompt": "A montage of people scrolling through their phones, with a subtle overlay of anxiety symbols (e.g., worried faces, anxious hearts)",
+      "speaking_style": "concerned, empathetic, authoritative",
+      "audio_file": "section_1.mp3",
+      "image_file": "section_1.jpg"
+    },
+    {
+      "section_number": 2,
+      "title": "Main Point 1: The Impact of Social Media on Mental Health in the Philippines",
+      "content": "Research has shown that excessive social media use can lead to increased symptoms of depression and anxiety in young adults. In the Philippines, this trend is particularly concerning given the country's high rates of mental health issues. A study by the University of the Philippines found that 70% of Filipino youth reported feeling anxious or depressed after using social media for more than two hours a day.",
+      "duration": 120,
+      "visual_prompt": "A graphic illustrating the statistics, with a subtle animation to highlight key findings",
+      "speaking_style": "authoritative, objective",
+      "audio_file": "section_2.mp3",
+      "image_file": "section_2.jpg"
+    },
+    {
+      "section_number": 3,
+      "title": "Main Point 2: How Filipinos Are Using Technology to Promote Mental Well-being",
+      "content": "But there's hope. Many Filipinos are using technology to promote mental well-being and fight back against social media anxiety. Apps like Calm and Headspace offer guided meditation and mindfulness exercises, while online communities like Mental Health Philippines provide a safe space for people to share their struggles and connect with others who understand.",
+      "duration": 120,
+      "visual_prompt": "A montage of people using mental health apps or participating in online forums",
+      "speaking_style": "inspiring, hopeful",
+      "audio_file": "section_3.mp3",
+      "image_file": "section_3.jpg"
+    },
+    {
+      "section_number": 4,
+      "title": "Conclusion/Call to Action",
+      "content": "So what can you do to take control of your online presence and protect your mental health? Start by setting boundaries around your social media use, taking regular breaks from screens, and engaging in activities that bring you joy and fulfillment. And if you're struggling with social media anxiety or mental health issues, don't be afraid to reach out for help. There are resources available, and you're not alone.",
+      "duration": 90,
+      "visual_prompt": "A shot of a person looking at their phone with a concerned expression, followed by a montage of people engaging in healthy activities (e.g., exercise, spending time with loved ones)",
+      "speaking_style": "encouraging, supportive",
+      "audio_file": "section_4.mp3",
+      "image_file": "section_4.jpg"
+    }
+  ],
+  "call_to_action": "Subscribe and like the video for more content on mental health and wellness. Share your thoughts on social media anxiety in the comments below!",
+  "hashtags": [
+    "#SocialMediaAnxiety",
+    "#MentalHealthPhilippines",
+    "#DigitalWellness"
+  ]
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "recommended_topic": "Donald Trump nominates Federal Reserve critic Kevin Warsh to run US central bank | BBC News",
+    "rationale": "This topic has historically performed well, and it's a current event that is likely to attract viewers. The BBC News channel has a strong reputation for covering high-profile news stories like this one.",
+    "target_title": "Trump Nominates Federal Reserve Critic Kevin Warsh to Run US Central Bank",
+    "title_variations": [
+      "Kevin Warsh to Head Federal Reserve",
+      "Trump's Federal Reserve Pick"
+    ],
+    "description_template": "Full video description with placeholders: {{title}} | {{date}} | {{channel}}",
+    "keywords": [
+      "Donald Trump",
+      "Federal Reserve",
+      "Kevin Warsh"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Background on Kevin Warsh and his qualifications for the job",
+      "Main point 2: Reaction from experts and politicians",
+      "Conclusion/Call to action: What this means for the US economy"
+    ],
+    "estimated_duration": "10-15 minutes",
+    "thumbnail_ideas": [
+      "Image of Donald Trump with a serious expression",
+      "Graph showing Kevin Warsh's qualifications"
+    ],
+    "estimated_engagement": {
+      "Expected views": 20000,
+      "Engagement rate": 6.5
+    }
+  },
+  {
+    "recommended_topic": "What happened on the UK Prime Minister's trip to China? | BBC Newscast",
+    "rationale": "This topic is a trending topic and has performed well in the past, especially for news-focused channels like BBC News.",
+    "target_title": "UK PM's Trip to China: What Happened?",
+    "title_variations": [
+      "China Trip Update",
+      "PM's China Visit"
+    ],
+    "description_template": "Full video description with placeholders: {{title}} | {{date}} | {{channel}}",
+    "keywords": [
+      "UK Prime Minister",
+      "China trip",
+      "BBC News"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Background on the trip and its purpose",
+      "Main point 2: Key takeaways from the trip",
+      "Conclusion/Call to action: What this means for UK-China relations"
+    ],
+    "estimated_duration": "8-12 minutes",
+    "thumbnail_ideas": [
+      "Image of the UK Prime Minister with a serious expression",
+      "Map showing China and the UK's locations"
+    ],
+    "estimated_engagement": {
+      "Expected views": 25000,
+      "Engagement rate": 7.5
+    }
+  },
+  {
+    "recommended_topic": "Russia says it will pause attacks on Kyiv until Sunday | BBC News",
+    "rationale": "This topic is a current event that has performed well in the past, especially for news-focused channels like BBC News.",
+    "target_title": "Russia Pauses Attacks on Kyiv",
+    "title_variations": [
+      "Kyiv Ceasefire",
+      "Russia's Pause on Kyiv"
+    ],
+    "description_template": "Full video description with placeholders: {{title}} | {{date}} | {{channel}}",
+    "keywords": [
+      "Russia",
+      "Kyiv ceasefire",
+      "BBC News"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Background on the conflict and its current state",
+      "Main point 2: Reaction from experts and politicians",
+      "Conclusion/Call to action: What this means for global security"
+    ],
+    "estimated_duration": "10-15 minutes",
+    "thumbnail_ideas": [
+      "Image of a map showing Ukraine's location",
+      "Graph showing Russia's military movements"
+    ],
+    "estimated_engagement": {
+      "Expected views": 18000,
+      "Engagement rate": 6.2
+    }
+  },
+  {
+    "recommended_topic": "Bridgerton’s Hannah Dodd addresses Francesca’s autistic traits. #FrancescaBridgerton #BBCNews",
+    "rationale": "This topic has performed well in the past, especially for entertainment-focused channels like BBC News.",
+    "target_title": "Hannah Dodd on Francesca's Autistic Traits",
+    "title_variations": [
+      "Francesca's Autism",
+      "Hannah Dodd on Autistic Traits"
+    ],
+    "description_template": "Full video description with placeholders: {{title}} | {{date}} | {{channel}}",
+    "keywords": [
+      "Bridgerton",
+      "Autism awareness",
+      "BBC News"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Background on Francesca's character and her autism",
+      "Main point 2: Hannah Dodd's thoughts on representation and inclusion",
+      "Conclusion/Call to action: What this means for the future of TV shows"
+    ],
+    "estimated_duration": "8-12 minutes",
+    "thumbnail_ideas": [
+      "Image of Hannah Dodd with a serious expression",
+      "Quote from Francesca's character about autism"
+    ],
+    "estimated_engagement": {
+      "Expected views": 15000,
+      "Engagement rate": 5.8
+    }
+  },
+  {
+    "recommended_topic": "Donald Trump nominates Federal Reserve critic Kevin Warsh to run US central bank | BBC News",
+    "rationale": "This topic has historically performed well, and it's a current event that is likely to attract viewers.",
+    "target_title": "Trump Nominates Federal Reserve Critic Kevin Warsh",
+    "title_variations": [
+      "Kevin Warsh for Fed Chair",
+      "Trump's Fed Pick"
+    ],
+    "description_template": "Full video description with placeholders: {{title}} | {{date}} | {{channel}}",
+    "keywords": [
+      "Donald Trump",
+      "Federal Reserve",
+      "Kevin Warsh"
+    ],
+    "content_structure": [
+      "Hook (0-30s)",
+      "Main point 1: Background on Kevin Warsh and his qualifications for the job",
+      "Main point 2: Reaction from experts and politicians",
+      "Conclusion/Call to action: What this means for the US economy"
+    ],
+    "estimated_duration": "10-15 minutes",
+    "thumbnail_ideas": [
+      "Image of Donald Trump with a serious expression",
+      "Graph showing Kevin Warsh's qualifications"
+    ],
+    "estimated_engagement": {
+      "Expected views": 20000,
+      "Engagement rate": 6.5
+    }
+  }
+]

@@ -59,7 +59,7 @@ class OllamaClient:
         
         try:
             print(f"🔄 Generating response from {self.model}...")
-            response = requests.post(url, json=payload, timeout=120)
+            response = requests.post(url, json=payload, timeout=500)
             response.raise_for_status()
             
             result = response.json()

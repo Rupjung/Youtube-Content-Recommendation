@@ -82,7 +82,7 @@ class VideoGenerator:
                         "motion_bucket_id": getattr(Config, 'MOTION_BUCKET_ID', 127),
                         "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
                     },
-                    timeout=300  # 5 minutes timeout for video generation
+                    timeout=500  # 5 minutes timeout for video generation
                 )
 
                 if response.status_code == 200:

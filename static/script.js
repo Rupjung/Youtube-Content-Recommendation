@@ -6,6 +6,9 @@ let recommendationsRendered = false;
 
 let pollingInterval = null;
 
+let chartsRendered = false;   
+let trendRendered = false;    
+
 
 
 
@@ -79,13 +82,15 @@ function startPolling() {
         }
 
         // Update Top Topics Chart
-        if (data.top_videos && data.top_videos.length > 0) {
+        if (data.top_videos && data.top_videos.length > 0 && !chartsRendered) {
             updateChart(data.top_videos);
+            chartsRendered = true;
         }
 
         // Inside your startPolling loop, add:
-        if (data.recent_engagement && data.recent_engagement.length > 0) {
+        if (data.recent_engagement && data.recent_engagement.length > 0 && !trendRendered) {
             updateTrendChart(data.recent_engagement);
+            trendRendered = true;
         }
 
                     if (
@@ -118,6 +123,8 @@ function startPolling() {
         }
         // Show generated video when ready
         if (data.video_url) {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
             const videoCard = document.getElementById('videoOutputCard');
             const videoEl = document.getElementById('generatedVideo');
             const downloadBtn = document.getElementById('downloadVideoBtn');
@@ -166,7 +173,6 @@ function updateChart(videoData) {
     const labels = videoData.map(v => v.title.substring(0, 30) + "...");
     const values = videoData.map(v => v.engagement_rate * 100);
 
-    if (topicsChart) topicsChart.destroy();
 
     topicsChart = new Chart(ctx, {
         type: 'bar',
@@ -199,7 +205,6 @@ function updateTrendChart(engagementData) {
     const labels = engagementData.map(v => v.title.substring(0, 20) + "...");
     const values = engagementData.map(v => (v.engagement_rate * 100).toFixed(2));
 
-    if (trendChart) trendChart.destroy();
 
     trendChart = new Chart(ctx, {
         type: 'line',

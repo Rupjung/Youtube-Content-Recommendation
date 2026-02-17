@@ -5,9 +5,9 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 from moviepy.editor import *
-# Import ElevenLabs components
-from elevenlabs import VoiceSettings
-from elevenlabs.client import ElevenLabs 
+import soundfile as sf
+from kokoro_onnx import Kokoro
+
 
 from config import Config
 
@@ -18,9 +18,15 @@ class VideoGenerator:
         self.video_path = None
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
-        
-        # ElevenLabs Client
-        self.el_client = ElevenLabs(api_key=getattr(Config, 'ELEVENLABS_API_KEY', 'your_api_key'))
+
+        # Kokoro TTS initialization
+        model_path = getattr(Config, "KOKORO_MODEL_PATH", "audio_model/model.onnx")
+        voices_path = getattr(Config, "KOKORO_VOICES_PATH", "audio_model/af.bin")
+
+        self.kokoro = Kokoro(
+            model_path,
+            voices_path
+        )
         
         # Kaggle Worker URL (get this from ngrok when you run the Kaggle notebook)
         self.kaggle_worker_url = getattr(Config, 'KAGGLE_WORKER_URL', None)
@@ -129,7 +135,6 @@ class VideoGenerator:
     def generate(self):
         print("Starting video generation...")
         
-        # 1. Generate ElevenLabs Audio
         audio_clips = self._generate_audio()
         
         # 2. Generate video clips from Kaggle worker
@@ -189,44 +194,39 @@ class VideoGenerator:
             return np.array(out.convert("RGB"))
         
     def _generate_audio(self):
-        """Generate ElevenLabs TTS audio for each section with volume/voice settings"""
-        audio_files = []
-        
-        for i, section in enumerate(self.script['sections']):
-            print(f"🎙️ ElevenLabs: Generating audio for section {i+1}...")
-            
-            text = section['content']
-            audio_file = os.path.join(self.assets_dir, f"audio_{i}.mp3")
-            
-            try:
-                # Convert text to speech using ElevenLabs
-                response = self.el_client.text_to_speech.convert(
-                    voice_id=getattr(Config, 'ELEVENLABS_VOICE_ID', 'pNInz6obpgDQGcFmaJgB'), # Default: Adam
-                    model_id="eleven_multilingual_v2",
-                    text=text,
-                    voice_settings=VoiceSettings(
-                        stability=0.5,
-                        similarity_boost=0.75,
-                        style=0.0,
-                        use_speaker_boost=True
-                    )
-                )
+            """Generate Kokoro ONNX TTS audio for each section"""
+            audio_files = []
 
-                # Save the audio stream to file
-                with open(audio_file, "wb") as f:
-                    for chunk in response:
-                        if chunk:
-                            f.write(chunk)
-                
-                audio_files.append(audio_file)
-                section['audio_file'] = audio_file
-                
-            except Exception as e:
-                print(f"⚠️ ElevenLabs Failed: {e}. Falling back to silence.")
-                self._create_silent_audio(audio_file, section.get('duration', 5))
-                audio_files.append(audio_file)
-        
-        return audio_files
+            for i, section in enumerate(self.script['sections']):
+                print(f"🎙️ Kokoro: Generating audio for section {i+1}...")
+
+                text = section['content']
+                audio_file = os.path.join(self.assets_dir, f"audio_{i}.wav")
+
+                try:
+                    # Generate speech
+                    audio, sample_rate = self.kokoro.create(
+                        text=text,
+                        voice=getattr(Config, "KOKORO_VOICE", "af_bella"),
+                        speed=getattr(Config, "KOKORO_SPEED", 1.0),
+                        lang="en-us"
+                    )
+
+                    audio = audio / np.max(np.abs(audio))
+
+                    # Save audio
+                    sf.write(audio_file, audio, sample_rate)
+
+                    audio_files.append(audio_file)
+                    section['audio_file'] = audio_file
+
+                except Exception as e:
+                    print(f"⚠️ Kokoro Failed: {e}. Falling back to silence.")
+                    self._create_silent_audio(audio_file, section.get('duration', 5))
+                    audio_files.append(audio_file)
+
+            return audio_files
+
     
     def _create_silent_audio(self, filepath, duration):
         """Create silent audio as fallback"""

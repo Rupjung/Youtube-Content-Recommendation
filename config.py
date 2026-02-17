@@ -8,7 +8,11 @@ class Config:
     YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
     CHANNEL_ID = os.getenv('CHANNEL_ID')
     GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-    ELEVENLABS_API_KEY = os.getenv('ELEVENLABS_API_KEY')
+    
+    KOKORO_MODEL_PATH = "audio_model/model.onnx"
+    KOKORO_VOICES_PATH = "audio_model/af.bin"
+    KOKORO_VOICE = "af_heart"
+    KOKORO_SPEED = 1.0
     
   
     KAGGLE_WORKER_URL = "https://magniloquent-uninstated-miesha.ngrok-free.dev"  # Your ngrok URL

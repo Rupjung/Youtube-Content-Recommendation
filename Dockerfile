@@ -3,15 +3,18 @@ FROM python:3.10-slim
 # System deps (minimal)
 RUN apt-get update && apt-get install -y \
     curl \
+    ffmpeg \
+    libsndfile1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 # Create runtime dirs
-RUN mkdir -p outputs static templates
+RUN mkdir -p outputs static templates audio_model  
 
 # Install Python deps first (better caching)
 COPY requirements.txt .
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app code

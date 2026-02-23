@@ -5,8 +5,8 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 from moviepy.editor import *
-import soundfile as sf
-from kokoro_onnx import Kokoro
+# import soundfile as sf
+# from kokoro_onnx import Kokoro
 
 
 from config import Config
@@ -19,21 +19,6 @@ class VideoGenerator:
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
 
-        # Define your paths and public raw URLs (from GitHub or HuggingFace)
-        MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx"
-        VOICE_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin"
-        os.makedirs("audio_model", exist_ok=True)
-        self.download_model_if_missing("audio_model/model.onnx", MODEL_URL)
-        self.download_model_if_missing("audio_model/af.bin", VOICE_URL)
-
-        # Kokoro TTS initialization
-        model_path = getattr(Config, "KOKORO_MODEL_PATH", "audio_model/model.onnx")
-        voices_path = getattr(Config, "KOKORO_VOICES_PATH", "audio_model/af.bin")
-
-        self.kokoro = Kokoro(
-            model_path,
-            voices_path
-        )
         
         # Kaggle Worker URL (get this from ngrok when you run the Kaggle notebook)
         self.kaggle_worker_url = getattr(Config, 'KAGGLE_WORKER_URL', None)
@@ -41,15 +26,6 @@ class VideoGenerator:
             print("WARNING: KAGGLE_WORKER_URL not found in config. "
                   "Please set it to your Kaggle worker's public URL (from ngrok)")
 
-    def download_model_if_missing(self, file_path, url):
-        # If file is missing or suspiciously small (LFS pointers are usually < 1KB)
-        if not os.path.exists(file_path) or os.path.getsize(file_path) < 2000:
-            print(f"DEBUG: Model missing or LFS pointer detected. Downloading from {url}...")
-            response = requests.get(url, stream=True)
-            with open(file_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            print("DEBUG: Download complete.")
 
     def _check_kaggle_worker_health(self):
         """Check if Kaggle worker is running and healthy"""
@@ -71,31 +47,24 @@ class VideoGenerator:
         """Generate short video clips using Kaggle GPU worker (SD + SVD)"""
         asset_paths = []
 
-        # Check worker health first
         if not self._check_kaggle_worker_health():
             print("⚠️ Kaggle worker not available, falling back to static images")
             return self._generate_images()
 
         for i, section in enumerate(self.script['sections']):
             print(f"🎬 Kaggle Worker: Requesting video for section {i+1}...")
-
             visual_prompt = section.get('visual_prompt', 'Cinematic scenery, high quality, smooth motion')
 
             try:
-                # Request video generation from Kaggle worker
                 fps = getattr(Config, 'VIDEO_FPS', 7)
-                
-                # Calculate num_frames from duration if specified, otherwise use config/default
-                if 'duration' in section and section['duration']:
-                    # duration in seconds → calculate frames needed
-                    num_frames = int(section['duration'] * fps)
-                    # Cap at 14 frames for T4 GPU safety
-                    num_frames = min(num_frames, 14)
-                    print(f"   📊 Duration: {section['duration']}s → {num_frames} frames @ {fps}fps")
+                # If we have the audio file, use its duration for the video length
+                if 'audio_file' in section:
+                    audio_duration = AudioFileClip(section['audio_file']).duration
+                    num_frames = int(audio_duration * fps)
+                    num_frames = min(num_frames, 25) # Safety cap for Kaggle
                 else:
-                    # Use config default
                     num_frames = getattr(Config, 'VIDEO_NUM_FRAMES', 14)
-                
+
                 response = requests.post(
                     f"{self.kaggle_worker_url}/generate-video",
                     json={
@@ -105,30 +74,23 @@ class VideoGenerator:
                         "motion_bucket_id": getattr(Config, 'MOTION_BUCKET_ID', 127),
                         "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
                     },
-                    timeout=500  # 5 minutes timeout for video generation
+                    timeout=500 
                 )
 
                 if response.status_code == 200:
                     result = response.json()
-                    video_id = result['video_id']
-                    download_url = result['download_url']
-                    
-                    # Download the generated video
                     video_file = os.path.join(self.assets_dir, f"video_{i}.mp4")
-                    full_download_url = f"{self.kaggle_worker_url}{download_url}"
+                    full_download_url = f"{self.kaggle_worker_url}{result['download_url']}"
                     
-                    print(f"   📥 Downloading video from: {full_download_url}")
                     self._download_file(full_download_url, video_file)
-                    
                     asset_paths.append(video_file)
                     section['asset_type'] = 'video'
-                    
                     print(f"   ✅ Video downloaded: {video_file}")
                 else:
-                    raise Exception(f"Worker returned status {response.status_code}: {response.text}")
+                    raise Exception(f"Worker Error: {response.text}")
 
             except Exception as e:
-                print(f"⚠️ Kaggle Worker Failed: {e}. Falling back to static image.")
+                print(f"⚠️ Kaggle Video Failed: {e}. Falling back to image.")
                 image_file = os.path.join(self.assets_dir, f"fallback_{i}.jpg")
                 self._generate_placeholder_image(visual_prompt, image_file)
                 asset_paths.append(image_file)
@@ -211,38 +173,47 @@ class VideoGenerator:
             return np.array(out.convert("RGB"))
         
     def _generate_audio(self):
-            """Generate Kokoro ONNX TTS audio for each section"""
-            audio_files = []
+        """Offload Kokoro TTS generation to Kaggle GPU worker"""
+        audio_files = []
 
-            for i, section in enumerate(self.script['sections']):
-                print(f"🎙️ Kokoro: Generating audio for section {i+1}...")
+        if not self._check_kaggle_worker_health():
+            print("⚠️ Kaggle worker offline. Audio generation will fail.")
 
-                text = section['content']
-                audio_file = os.path.join(self.assets_dir, f"audio_{i}.wav")
+        for i, section in enumerate(self.script['sections']):
+            print(f"🎙️ Kaggle Worker: Generating audio for section {i+1}...")
+            
+            text = section['content']
+            audio_file = os.path.join(self.assets_dir, f"audio_{i}.wav")
 
-                try:
-                    # Generate speech
-                    audio, sample_rate = self.kokoro.create(
-                        text=text,
-                        voice=getattr(Config, "KOKORO_VOICE", "af_bella"),
-                        speed=getattr(Config, "KOKORO_SPEED", 1.0),
-                        lang="en-us"
-                    )
+            try:
+                # Request audio from Kaggle
+                response = requests.post(
+                    f"{self.kaggle_worker_url}/generate-audio",
+                    json={
+                        "text": text,
+                        "voice": getattr(Config, "KOKORO_VOICE", "af_bella"),
+                        "speed": getattr(Config, "KOKORO_SPEED", 1.0)
+                    },
+                    timeout=120  # Audio is faster than video but give it 2 mins
+                )
 
-                    audio = audio / np.max(np.abs(audio))
-
-                    # Save audio
-                    sf.write(audio_file, audio, sample_rate)
-
+                if response.status_code == 200:
+                    # Save the raw binary audio data sent by Kaggle
+                    with open(audio_file, "wb") as f:
+                        f.write(response.content)
+                    
                     audio_files.append(audio_file)
                     section['audio_file'] = audio_file
+                    print(f"   ✅ Audio received: {audio_file}")
+                else:
+                    raise Exception(f"Kaggle returned error {response.status_code}")
 
-                except Exception as e:
-                    print(f"⚠️ Kokoro Failed: {e}. Falling back to silence.")
-                    self._create_silent_audio(audio_file, section.get('duration', 5))
-                    audio_files.append(audio_file)
+            except Exception as e:
+                print(f"⚠️ Kaggle Audio Failed: {e}. Falling back to silence.")
+                self._create_silent_audio(audio_file, section.get('duration', 5))
+                audio_files.append(audio_file)
 
-            return audio_files
+        return audio_files
 
     
     def _create_silent_audio(self, filepath, duration):

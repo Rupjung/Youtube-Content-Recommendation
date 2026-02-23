@@ -41,7 +41,7 @@ class VideoGenerator:
             print("WARNING: KAGGLE_WORKER_URL not found in config. "
                   "Please set it to your Kaggle worker's public URL (from ngrok)")
 
-    def download_model_if_missing(file_path, url):
+    def download_model_if_missing(self, file_path, url):
         # If file is missing or suspiciously small (LFS pointers are usually < 1KB)
         if not os.path.exists(file_path) or os.path.getsize(file_path) < 2000:
             print(f"DEBUG: Model missing or LFS pointer detected. Downloading from {url}...")

@@ -19,6 +19,13 @@ class VideoGenerator:
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
 
+        # Define your paths and public raw URLs (from GitHub or HuggingFace)
+        MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx"
+        VOICE_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin"
+        os.makedirs("audio_model", exist_ok=True)
+        self.download_model_if_missing("audio_model/model.onnx", MODEL_URL)
+        self.download_model_if_missing("audio_model/af.bin", VOICE_URL)
+
         # Kokoro TTS initialization
         model_path = getattr(Config, "KOKORO_MODEL_PATH", "audio_model/model.onnx")
         voices_path = getattr(Config, "KOKORO_VOICES_PATH", "audio_model/af.bin")
@@ -33,6 +40,16 @@ class VideoGenerator:
         if not self.kaggle_worker_url:
             print("WARNING: KAGGLE_WORKER_URL not found in config. "
                   "Please set it to your Kaggle worker's public URL (from ngrok)")
+
+    def download_model_if_missing(file_path, url):
+        # If file is missing or suspiciously small (LFS pointers are usually < 1KB)
+        if not os.path.exists(file_path) or os.path.getsize(file_path) < 2000:
+            print(f"DEBUG: Model missing or LFS pointer detected. Downloading from {url}...")
+            response = requests.get(url, stream=True)
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            print("DEBUG: Download complete.")
 
     def _check_kaggle_worker_health(self):
         """Check if Kaggle worker is running and healthy"""

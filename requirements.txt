@@ -41,4 +41,4 @@ pydantic-settings>=2.0.0
 onnxruntime
 soundfile
 scipy
-kokoro-onnx
+kokoro-onnx 

@@ -19,9 +19,9 @@ class VideoGenerator:
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
         self.headers = {
-    "ngrok-skip-browser-warning": "true",
-    "Content-Type": "application/json"
-        }
+        "ngrok-skip-browser-warning": "true",
+        "Content-Type": "application/json"
+            }
 
         
         # Kaggle Worker URL (get this from ngrok when you run the Kaggle notebook)
@@ -29,6 +29,22 @@ class VideoGenerator:
         if not self.kaggle_worker_url:
             print("WARNING: KAGGLE_WORKER_URL not found in config. "
                   "Please set it to your Kaggle worker's public URL (from ngrok)")
+            
+    def _check_kaggle_worker_health(self):
+        """Check if Kaggle worker is running and healthy"""
+        try:
+            response = requests.get(
+                f"{self.kaggle_worker_url}/health",
+                timeout=10
+            )
+            if response.status_code == 200:
+                data = response.json()
+                print(f"✅ Kaggle Worker Status: {data}")
+                return True
+            return False
+        except Exception as e:
+            print(f"❌ Kaggle Worker Health Check Failed: {e}")
+            return False
 
 
     def _generate_video_assets(self):

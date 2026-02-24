@@ -19,7 +19,8 @@ class VideoGenerator:
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
         self.headers = {
-    "ngrok-skip-browser-warning": "69420"
+    "ngrok-skip-browser-warning": "true",
+    "Content-Type": "application/json"
         }
 
         
@@ -78,7 +79,7 @@ class VideoGenerator:
                         "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
                     },
                     headers=self.headers,
-                    timeout=500 
+                    timeout=1200 
                 )
 
                 if response.status_code == 200:

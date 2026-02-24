@@ -79,7 +79,7 @@ class VideoGenerator:
                         "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
                     },
                     headers=self.headers,
-                    timeout=1200 
+                    timeout=2000
                 )
 
                 if response.status_code == 200:

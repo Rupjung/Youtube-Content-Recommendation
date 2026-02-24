@@ -18,6 +18,9 @@ class VideoGenerator:
         self.video_path = None
         self.assets_dir = os.path.join(Config.OUTPUT_DIR, 'temp_assets')
         os.makedirs(self.assets_dir, exist_ok=True)
+        self.headers = {
+    "ngrok-skip-browser-warning": "69420"
+        }
 
         
         # Kaggle Worker URL (get this from ngrok when you run the Kaggle notebook)
@@ -74,6 +77,7 @@ class VideoGenerator:
                         "motion_bucket_id": getattr(Config, 'MOTION_BUCKET_ID', 127),
                         "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
                     },
+                    headers=self.headers,
                     timeout=500 
                 )
 
@@ -194,6 +198,7 @@ class VideoGenerator:
                         "voice": getattr(Config, "KOKORO_VOICE", "af_bella"),
                         "speed": getattr(Config, "KOKORO_SPEED", 1.0)
                     },
+                    headers=self.headers,
                     timeout=120  # Audio is faster than video but give it 2 mins
                 )
 
@@ -206,6 +211,7 @@ class VideoGenerator:
                     section['audio_file'] = audio_file
                     print(f"   ✅ Audio received: {audio_file}")
                 else:
+                    print(f"❌ Failed to get audio: {response.text}")
                     raise Exception(f"Kaggle returned error {response.status_code}")
 
             except Exception as e:

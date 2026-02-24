@@ -31,24 +31,8 @@ class VideoGenerator:
                   "Please set it to your Kaggle worker's public URL (from ngrok)")
 
 
-    def _check_kaggle_worker_health(self):
-        """Check if Kaggle worker is running and healthy"""
-        try:
-            response = requests.get(
-                f"{self.kaggle_worker_url}/health",
-                timeout=10
-            )
-            if response.status_code == 200:
-                data = response.json()
-                print(f"✅ Kaggle Worker Status: {data}")
-                return True
-            return False
-        except Exception as e:
-            print(f"❌ Kaggle Worker Health Check Failed: {e}")
-            return False
-
     def _generate_video_assets(self):
-        """Generate short video clips using Kaggle GPU worker (SD + SVD)"""
+        """Generate short video clips using Polling to avoid Ngrok/SSL timeouts"""
         asset_paths = []
 
         if not self._check_kaggle_worker_health():
@@ -56,46 +40,73 @@ class VideoGenerator:
             return self._generate_images()
 
         for i, section in enumerate(self.script['sections']):
-            print(f"🎬 Kaggle Worker: Requesting video for section {i+1}...")
-            visual_prompt = section.get('visual_prompt', 'Cinematic scenery, high quality, smooth motion')
+            print(f"🎬 [Section {i+1}] Initiating video generation task...")
+            visual_prompt = section.get('visual_prompt', 'Cinematic scenery, high quality')
 
             try:
                 fps = getattr(Config, 'VIDEO_FPS', 7)
-                # If we have the audio file, use its duration for the video length
-                if 'audio_file' in section:
-                    audio_duration = AudioFileClip(section['audio_file']).duration
-                    num_frames = int(audio_duration * fps)
-                    num_frames = min(num_frames, 25) # Safety cap for Kaggle
-                else:
-                    num_frames = getattr(Config, 'VIDEO_NUM_FRAMES', 14)
+                num_frames = getattr(Config, 'VIDEO_NUM_FRAMES', 14) # Reduced to 14 for stability
 
+                # 1. START THE TASK
                 response = requests.post(
                     f"{self.kaggle_worker_url}/generate-video",
                     json={
                         "prompt": visual_prompt,
                         "num_frames": num_frames,
-                        "fps": fps,
-                        "motion_bucket_id": getattr(Config, 'MOTION_BUCKET_ID', 127),
-                        "noise_aug_strength": getattr(Config, 'NOISE_AUG_STRENGTH', 0.02)
+                        "fps": fps
                     },
                     headers=self.headers,
-                    timeout=2000
+                    timeout=30 # Short timeout for the initial trigger
                 )
+                
+                if response.status_code != 200:
+                    raise Exception(f"Worker failed to start task: {response.text}")
 
-                if response.status_code == 200:
-                    result = response.json()
-                    video_file = os.path.join(self.assets_dir, f"video_{i}.mp4")
-                    full_download_url = f"{self.kaggle_worker_url}{result['download_url']}"
-                    
-                    self._download_file(full_download_url, video_file)
-                    asset_paths.append(video_file)
-                    section['asset_type'] = 'video'
-                    print(f"   ✅ Video downloaded: {video_file}")
-                else:
-                    raise Exception(f"Worker Error: {response.text}")
+                task_data = response.json()
+                video_id = task_data['video_id']
+                print(f"⏳ Task started: {video_id}. Waiting for GPU...")
+
+                # 2. POLL FOR COMPLETION
+                start_time = time.time()
+                MAX_WAIT = 900 # 15 minutes max
+                video_ready = False
+
+                while time.time() - start_time < MAX_WAIT:
+                    # Check status
+                    status_resp = requests.get(
+                        f"{self.kaggle_worker_url}/task-status/{video_id}",
+                        headers=self.headers,
+                        timeout=10
+                    )
+                    status_data = status_resp.json()
+
+                    if status_data['status'] == 'completed':
+                        print(f"✅ Video {video_id} is ready!")
+                        video_ready = True
+                        break
+                    elif status_data['status'] == 'failed':
+                        raise Exception(f"Kaggle Task Failed: {status_data.get('error')}")
+                    else:
+                        progress = status_data.get('progress', 0)
+                        print(f"   ... still processing ({progress}%). Waiting 15s...")
+                        time.sleep(15)
+
+                if not video_ready:
+                    raise Exception("Timed out waiting for Kaggle video generation.")
+
+                # 3. DOWNLOAD THE FINISHED FILE
+                video_file = os.path.join(self.assets_dir, f"video_{i}.mp4")
+                # Ensure download URL is properly formatted
+                download_url = f"{self.kaggle_worker_url}/download/{video_id}"
+                
+                print(f"📥 Downloading final video from {download_url}...")
+                self._download_file(download_url, video_file)
+                
+                asset_paths.append(video_file)
+                section['asset_type'] = 'video'
 
             except Exception as e:
-                print(f"⚠️ Kaggle Video Failed: {e}. Falling back to image.")
+                print(f"⚠️ Section {i+1} Failed: {e}. Falling back to image.")
                 image_file = os.path.join(self.assets_dir, f"fallback_{i}.jpg")
                 self._generate_placeholder_image(visual_prompt, image_file)
                 asset_paths.append(image_file)

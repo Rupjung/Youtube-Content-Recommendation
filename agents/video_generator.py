@@ -72,14 +72,19 @@ class VideoGenerator:
                         "fps": fps
                     },
                     headers=self.headers,
-                    timeout=30 # Short timeout for the initial trigger
+                    timeout=60 # Short timeout for the initial trigger
                 )
+                print("STATUS:", response.status_code)
+                print("RESPONSE TEXT:", response.text)
                 
                 if response.status_code != 200:
                     raise Exception(f"Worker failed to start task: {response.text}")
 
                 task_data = response.json()
-                video_id = task_data['video_id']
+                video_id = task_data.get("video_id") or task_data.get("task_id")
+
+                if not video_id:
+                    raise Exception(f"Invalid worker response: {task_data}")
                 print(f"⏳ Task started: {video_id}. Waiting for GPU...")
 
                 # 2. POLL FOR COMPLETION
